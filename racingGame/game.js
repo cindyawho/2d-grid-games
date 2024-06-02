@@ -23,7 +23,7 @@ var trackGrid = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                  1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1,
                  1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1,
                  1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1,
-                 1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1,
+                 1, 0, 2, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1,
                  1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1,
                  1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1,
                  1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1,
@@ -65,8 +65,16 @@ function updateAll() {
 }
 
 function ballReset() {
-    ballX = canvas.width/2;
-    ballY = canvas.height/2;
+    for(var eachRow = 0; eachRow < TRACK_ROWS; eachRow++){
+        for(var eachCol = 0; eachCol < TRACK_COLS; eachCol++){
+            var arrayIndex = rowColtoArrayIndex(eachCol, eachRow);
+            if(trackGrid[arrayIndex] == 2) {
+                trackGrid[arrayIndex] = 0;
+                ballX = eachCol * TRACK_W + TRACK_W/2;
+                ballY = eachRow * TRACK_H + TRACK_H/2;    
+            } // end of is this track here
+        } //end of for each track        
+    }
 }
 
 function ballMove(){
@@ -134,7 +142,7 @@ function ballTrackHandling() {
 } // end of ballTrackHandling func
 
 function moveAll() {
-    ballMove();
+    // ballMove();
     
     ballTrackHandling();
 }
