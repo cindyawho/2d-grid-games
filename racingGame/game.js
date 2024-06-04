@@ -9,8 +9,7 @@ var framesPerSecond = 30;
 var carX = 75;
 var carY = 75;
 var carAng = 0;
-var carSpeedX = 5;
-var carSpeedY = 7;
+var carSpeed = 2;
 
 const TRACK_W = 40;
 const TRACK_H = 40;
@@ -87,22 +86,10 @@ function carReset() {
 }
 
 function carMove(){
-    // carX += carSpeedX;
-    // carY += carSpeedY;
+    carX += Math.cos(carAng) * carSpeed;
+    carY += Math.sin(carAng) * carSpeed;
+
     carAng += 0.02;
-    
-    if(carX < 0 && carSpeedX < 0.0) { // left, fixes wall edge case
-        carSpeedX *= -1;
-    }
-    if(carX > canvas.width && carSpeedX > 0.0) { // right, fixes wall edge case
-        carSpeedX *= -1;
-    }
-    if(carY < 0  && carSpeedY < 0.0) { // top
-        carSpeedY *= -1;
-    }
-    if(carY > canvas.height) { // bottom
-        carReset();
-    } 
 }
 
 function isTrackAtColRow(col, row) {
@@ -124,30 +111,8 @@ function carTrackHandling() {
         carTrackRow >= 0 && carTrackRow < TRACK_ROWS){
     
         if(isTrackAtColRow(carTrackCol, carTrackRow)){
-            var prevCarX = carX - carSpeedX;
-            var prevCarY = carY - carSpeedY;
-            var prevTrackCol = Math.floor(prevCarX / TRACK_W);
-            var prevTrackRow = Math.floor(prevCarY / TRACK_H);
-
-            var bothTestsFailed = true;
-            if(prevTrackCol != carTrackCol) {
-                if(isTrackAtColRow(prevTrackCol, carTrackRow)==false){
-                    carSpeedX *= -1;
-                    bothTestsFailed = false;
-                }
-            }
-            if(prevTrackRow != carTrackRow) {
-                if(isTrackAtColRow(prevTrackCol, carTrackRow)==false){
-                    carSpeedY *= -1;
-                    bothTestsFailed = false;
-                }
-            }
-
-            if(bothTestsFailed) { //armpit case, prevents car from going through corners
-                carSpeedX *= -1;
-                carSpeedY *= -1;
-            }
-        } // end of track gounf
+            carSpeed *= -1;
+        } // end of change diraction
     } // end of track row and col
 } // end of carTrackHandling func
 
