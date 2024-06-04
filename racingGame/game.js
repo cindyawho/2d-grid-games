@@ -1,6 +1,9 @@
 console.log("Welcome to the racing game!");
 
 // ~~~~~~~~~~~~~~~~ Global Variables ~~~~~~~~~~~~~~~~
+var carPic = document.createElement("img");
+var carPicLoaded = false;
+
 var canvas, canvasContext;
 var framesPerSecond = 30;
 var ballX = 75;
@@ -55,6 +58,11 @@ window.onload = function() {
 
     //move paddle with mouse movement
     canvas.addEventListener("mousemove", updateMousePos);
+
+    carPic.onload = function() { //wait until image is loaded in
+        carPicLoaded =true;
+    }
+    carPic.src = "player1car.png";
 
     ballReset();
 }
@@ -167,7 +175,11 @@ function drawTracks() {
 function drawAll() {
     colorRect(0, 0, canvas.width, canvas.height, "black"); //clear screen
     
-    colorCircle(ballX, ballY, 10, "white"); //draw ball
+    // colorCircle(ballX, ballY, 10, "white"); //draw ball
+    if(carPicLoaded) {
+        canvasContext.drawImage(carPic, 
+            ballX - carPic.width/2, ballY - carPic.height/2);
+    }
 
     drawTracks();
 }
