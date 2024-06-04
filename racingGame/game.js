@@ -8,6 +8,7 @@ var canvas, canvasContext;
 var framesPerSecond = 30;
 var carX = 75;
 var carY = 75;
+var carAng = 0;
 var carSpeedX = 5;
 var carSpeedY = 7;
 
@@ -86,8 +87,9 @@ function carReset() {
 }
 
 function carMove(){
-    carX += carSpeedX;
-    carY += carSpeedY;
+    // carX += carSpeedX;
+    // carY += carSpeedY;
+    carAng += 0.02;
     
     if(carX < 0 && carSpeedX < 0.0) { // left, fixes wall edge case
         carSpeedX *= -1;
@@ -150,7 +152,7 @@ function carTrackHandling() {
 } // end of carTrackHandling func
 
 function moveAll() {
-    // carMove();
+    carMove();
     
     carTrackHandling();
 }
@@ -177,11 +179,19 @@ function drawAll() {
     
     // colorCircle(carX, carY, 10, "white"); //draw car
     if(carPicLoaded) {
-        canvasContext.drawImage(carPic, 
-            carX - carPic.width/2, carY - carPic.height/2);
+        // console.log(carPic, carX, carY, carAng);
+        drawBitmapCenteredWithRotation(carPic, carX, carY, carAng);
     }
 
     drawTracks();
+}
+
+function drawBitmapCenteredWithRotation(useBitmap, atX, atY, withAng) {
+    canvasContext.save();
+    canvasContext.translate(atX, atY);
+    canvasContext.rotate(withAng);
+    canvasContext.drawImage(useBitmap, -useBitmap.width/2, -useBitmap.height/2);
+    canvasContext.restore();
 }
 
 function colorRect(topLeftX, topLeftY, boxWidth, boxHeight, fillColor){
