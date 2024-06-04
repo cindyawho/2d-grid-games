@@ -12,10 +12,15 @@ const KEY_UP_ARROW = 38;
 const KEY_RIGHT_ARROW = 39;
 const KEY_DOWN_ARROW = 40;
 
+var keyHeld_Gas = false;
+var keyHeld_Reverse = false;
+var keyHeld_TurnLeft = false;
+var keyHeld_TurnRight = false;
+
 var carX = 75;
 var carY = 75;
 var carAng = 0;
-var carSpeed = 2;
+var carSpeed = 0;
 
 const TRACK_W = 40;
 const TRACK_H = 40;
@@ -61,21 +66,33 @@ function keyPressed(evt) {
     // console.log("Key Pressed:" + evt.keyCode); 
     //w is 87, s is 83, a is 65, d is 68
     if(evt.keyCode == KEY_LEFT_ARROW) {
-        carAng -= 0.5;
+        keyHeld_TurnLeft = true;
     }
     if(evt.keyCode == KEY_RIGHT_ARROW) {
-        carAng += 0.5;
+        keyHeld_TurnRight = true;
     }
     if(evt.keyCode == KEY_UP_ARROW) {
-        carSpeed += 0.5;
+        keyHeld_Gas = true;
     }
     if(evt.keyCode == KEY_DOWN_ARROW) {
-        carSpeed -= 0.5;
+        keyHeld_Reverse = true;
     }
 }
 
 function keyReleased(evt) {
     // console.log("Key Released:" + evt.keyCode);
+    if(evt.keyCode == KEY_LEFT_ARROW) {
+        keyHeld_TurnLeft = false;
+    }
+    if(evt.keyCode == KEY_RIGHT_ARROW) {
+        keyHeld_TurnRight = false;
+    }
+    if(evt.keyCode == KEY_UP_ARROW) {
+        keyHeld_Gas = false;
+    }
+    if(evt.keyCode == KEY_DOWN_ARROW) {
+        keyHeld_Reverse = false;
+    }
 }
 
 // ~~~~~~~~~~~~~~~~ Main Game Code ~~~~~~~~~~~~~~~~
@@ -110,6 +127,7 @@ function carReset() {
             var arrayIndex = rowColtoArrayIndex(eachCol, eachRow);
             if(trackGrid[arrayIndex] == 2) {
                 trackGrid[arrayIndex] = 0;
+                carAng = -Math.PI/2;
                 carX = eachCol * TRACK_W + TRACK_W/2;
                 carY = eachRow * TRACK_H + TRACK_H/2;    
             } // end of is this track here
@@ -118,6 +136,21 @@ function carReset() {
 }
 
 function carMove(){
+    carSpeed *= 0.97;
+
+    if(keyHeld_Gas) {
+        carSpeed += 0.3;
+    }
+    if(keyHeld_Reverse) {
+        carSpeed -= 0.3;
+    }
+    if(keyHeld_TurnLeft) {
+        carAng -= 0.2;
+    }
+    if(keyHeld_TurnRight) {
+        carAng += 0.2;
+    }
+
     carX += Math.cos(carAng) * carSpeed;
     carY += Math.sin(carAng) * carSpeed;
 
@@ -141,9 +174,12 @@ function carTrackHandling() {
     var trackIndexUnderCar = rowColtoArrayIndex(carTrackCol, carTrackRow);
     if(carTrackCol>=0 && carTrackCol < TRACK_COLS && 
         carTrackRow >= 0 && carTrackRow < TRACK_ROWS){
-    
+            
         if(isTrackAtColRow(carTrackCol, carTrackRow)){
-            carSpeed *= -1;
+            //next two lines fix a bug when car burrows into wall
+            carX -= Math.cos(carAng) * carSpeed;
+            carY -= Math.sin(carAng) * carSpeed;
+            carSpeed *= -0.5;
         } // end of change diraction
     } // end of track row and col
 } // end of carTrackHandling func
