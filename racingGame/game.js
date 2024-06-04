@@ -6,6 +6,12 @@ var carPicLoaded = false;
 
 var canvas, canvasContext;
 var framesPerSecond = 30;
+
+const KEY_LEFT_ARROW = 37;
+const KEY_UP_ARROW = 38;
+const KEY_RIGHT_ARROW = 39;
+const KEY_DOWN_ARROW = 40;
+
 var carX = 75;
 var carY = 75;
 var carAng = 0;
@@ -49,6 +55,29 @@ function updateMousePos(evt) {
     // carSpeedY = -4;
 }
 
+// ~~~~~~~~~~~~~~~~ Keyboard functions ~~~~~~~~~~~~~~~~ 
+
+function keyPressed(evt) {
+    // console.log("Key Pressed:" + evt.keyCode); 
+    //w is 87, s is 83, a is 65, d is 68
+    if(evt.keyCode == KEY_LEFT_ARROW) {
+        carAng -= 0.5;
+    }
+    if(evt.keyCode == KEY_RIGHT_ARROW) {
+        carAng += 0.5;
+    }
+    if(evt.keyCode == KEY_UP_ARROW) {
+        carSpeed += 0.5;
+    }
+    if(evt.keyCode == KEY_DOWN_ARROW) {
+        carSpeed -= 0.5;
+    }
+}
+
+function keyReleased(evt) {
+    // console.log("Key Released:" + evt.keyCode);
+}
+
 // ~~~~~~~~~~~~~~~~ Main Game Code ~~~~~~~~~~~~~~~~
 window.onload = function() {
     canvas = document.getElementById('gameCanvas');
@@ -58,6 +87,9 @@ window.onload = function() {
 
     //move paddle with mouse movement
     canvas.addEventListener("mousemove", updateMousePos);
+
+    document.addEventListener('keydown', keyPressed);
+    document.addEventListener('keyup', keyReleased);
 
     carPic.onload = function() { //wait until image is loaded in
         carPicLoaded =true;
@@ -89,7 +121,7 @@ function carMove(){
     carX += Math.cos(carAng) * carSpeed;
     carY += Math.sin(carAng) * carSpeed;
 
-    carAng += 0.02;
+    // carAng += 0.02;
 }
 
 function isTrackAtColRow(col, row) {
