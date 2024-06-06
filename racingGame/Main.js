@@ -10,12 +10,12 @@ window.onload = function() {
     canvas = document.getElementById('gameCanvas');
     canvasContext = canvas.getContext("2d");
 
+    loadImages();
+}
+
+function imageLoadingDoneSoStartGame(){
     setInterval(updateAll, 1000/framesPerSecond);
-
     setUpInput();
-
-    trackLoadImages();
-    carImageLoad();
     carReset();
 }
 
