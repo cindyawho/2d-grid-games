@@ -4,6 +4,7 @@ console.log("Welcome to the racing game!");
 var canvas, canvasContext;
 var framesPerSecond = 30;
 
+var blueCar = new carClass(); //create a blue car using class definition
 
 // ~~~~~~~~~~~~~~~~ Main Game Code ~~~~~~~~~~~~~~~~
 window.onload = function() {
@@ -19,7 +20,7 @@ window.onload = function() {
 function imageLoadingDoneSoStartGame(){
     setInterval(updateAll, 1000/framesPerSecond);
     setUpInput();
-    carReset();
+    blueCar.reset();
 }
 
 function updateAll() {
@@ -28,8 +29,8 @@ function updateAll() {
 }
 
 function moveAll() {
-    carMove();   
-    carTrackHandling();
+    blueCar.move();   
+    carTrackHandling(blueCar);
 }
 
 function clearScreen() {
@@ -38,5 +39,5 @@ function clearScreen() {
 
 function drawAll() {
     drawTracks();
-    carDraw();
+    blueCar.draw();
 }
