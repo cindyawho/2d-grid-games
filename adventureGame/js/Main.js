@@ -4,7 +4,7 @@ console.log("Welcome to the racing game!");
 var canvas, canvasContext;
 var framesPerSecond = 30;
 
-var blueCar = new carClass(); //create a blue car using class definition
+var blueWarrior = new warriorClass(); //create a blue warrior using class definition
 
 // ~~~~~~~~~~~~~~~~ Main Game Code ~~~~~~~~~~~~~~~~
 window.onload = function() {
@@ -33,8 +33,8 @@ function nextLevel() {
 }
 
 function loadLevel(whichLevel) {
-    trackGrid = whichLevel.slice(); // copy level array to trackGrid
-    blueCar.reset(carPic, "Blue Storm");
+    worldGrid = whichLevel.slice(); // copy level array to worldGrid
+    blueWarrior.reset(warriorPic, "Blue Storm");
 }
 
 function updateAll() {
@@ -43,7 +43,7 @@ function updateAll() {
 }
 
 function moveAll() {
-    blueCar.move();   
+    blueWarrior.move();   
 }
 
 function clearScreen() {
@@ -51,6 +51,6 @@ function clearScreen() {
 }
 
 function drawAll() {
-    drawTracks();
-    blueCar.draw();
+    drawWorlds();
+    blueWarrior.draw();
 }
