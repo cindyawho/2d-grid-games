@@ -21,6 +21,20 @@ window.onload = function() {
 function imageLoadingDoneSoStartGame(){
     setInterval(updateAll, 1000/framesPerSecond);
     setUpInput();
+
+    loadLevel(levelList[levelNow]);
+}
+
+function nextLevel() {
+    levelNow++
+    if(levelNow >= levelList.length) {
+        levelNow = 0;
+    }
+    loadLevel(levelList[levelNow]);
+}
+
+function loadLevel(whichLevel) {
+    trackGrid = whichLevel.slice(); // copy level array to trackGrid
     blueCar.reset(carPic, "Blue Storm");
     greenCar.reset(car2Pic, "Green Machine");
 }
