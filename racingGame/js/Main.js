@@ -5,6 +5,7 @@ var canvas, canvasContext;
 var framesPerSecond = 30;
 
 var blueCar = new carClass(); //create a blue car using class definition
+var greenCar = new carClass(); // create a seond car for player 2
 
 // ~~~~~~~~~~~~~~~~ Main Game Code ~~~~~~~~~~~~~~~~
 window.onload = function() {
@@ -20,7 +21,8 @@ window.onload = function() {
 function imageLoadingDoneSoStartGame(){
     setInterval(updateAll, 1000/framesPerSecond);
     setUpInput();
-    blueCar.reset();
+    blueCar.reset(carPic);
+    greenCar.reset(car2Pic);
 }
 
 function updateAll() {
@@ -30,7 +32,7 @@ function updateAll() {
 
 function moveAll() {
     blueCar.move();   
-    carTrackHandling(blueCar);
+    greenCar.move();
 }
 
 function clearScreen() {
@@ -40,4 +42,5 @@ function clearScreen() {
 function drawAll() {
     drawTracks();
     blueCar.draw();
+    greenCar.draw();
 }
