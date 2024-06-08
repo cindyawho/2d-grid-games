@@ -1,11 +1,6 @@
 var carPic = document.createElement("img");
 
 var trackPics = [];
-var roadPic = document.createElement("img");
-var wallPic = document.createElement("img");
-var goalPic = document.createElement("img");
-var treePic = document.createElement("img");
-var flagPic = document.createElement("img");
 
 var picsToLoad = 0; // set automatically based on imageList in loadImages();
 

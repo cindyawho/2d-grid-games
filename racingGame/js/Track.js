@@ -64,25 +64,7 @@ function drawTracks() {
             
             var arrayIndex = rowColtoArrayIndex(eachCol, eachRow);
             var tileKindHere = trackGrid[arrayIndex];
-            var useImg;
-            
-            switch(tileKindHere){
-                case TRACK_ROAD:
-                    useImg = roadPic;
-                    break;
-                case TRACK_WALL:
-                    useImg = wallPic;
-                    break;
-                case TRACK_GOAL:
-                    useImg = goalPic;
-                    break;
-                case TRACK_TREE:
-                    useImg = treePic;
-                    break;
-                case TRACK_FLAG:
-                    useImg = flagPic;
-                    break;
-            } 
+            var useImg = trackPics[tileKindHere]; //take the value in the track map and find the image from the trackPics array we load
             canvasContext.drawImage(useImg, TRACK_W*eachCol, TRACK_H*eachRow);
         } //end of for each track        
     } //end of for each row
