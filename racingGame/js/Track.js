@@ -59,13 +59,19 @@ function rowColtoArrayIndex(col, row) {
 }
 
 function drawTracks() {
+
+    var arrayIndex = 0;
+    var drawTileX = 0;
+    var drawTileY = 0;
     for(var eachRow = 0; eachRow < TRACK_ROWS; eachRow++){
         for(var eachCol = 0; eachCol < TRACK_COLS; eachCol++){
-            
-            var arrayIndex = rowColtoArrayIndex(eachCol, eachRow);
             var tileKindHere = trackGrid[arrayIndex];
             var useImg = trackPics[tileKindHere]; //take the value in the track map and find the image from the trackPics array we load
-            canvasContext.drawImage(useImg, TRACK_W*eachCol, TRACK_H*eachRow);
-        } //end of for each track        
+            canvasContext.drawImage(useImg, drawTileX, drawTileY);
+            drawTileX += TRACK_W
+            arrayIndex++;
+        } //end of for each track   
+        drawTileY += TRACK_H;     
+        drawTileX = 0;
     } //end of for each row
 } // end of drawTracks
