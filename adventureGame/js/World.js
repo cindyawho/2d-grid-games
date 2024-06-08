@@ -102,10 +102,19 @@ function warriorWorldHandling(whichWarrior) {
             nextLevel();
             // alert(whichWarrior.name + " WINS!!"); // warrior keeps going after alert as if up key was still pressed
         } else if(tileHere != WORLD_ROAD) {
-            //next two lines fix a bug when warrior burrows into wall
-            whichWarrior.x -= Math.cos(whichWarrior.ang) * whichWarrior.speed;
-            whichWarrior.y -= Math.sin(whichWarrior.ang) * whichWarrior.speed;
-            whichWarrior.speed *= -0.5;
+            if(whichWarrior.keyHeld_North) {
+                whichWarrior.y += WALK_SPEED;
+                // console.log("PRESSING NORTH");
+            }
+            if(whichWarrior.keyHeld_South) {
+                whichWarrior.y -= WALK_SPEED;
+            }
+            if(whichWarrior.keyHeld_West) {
+                whichWarrior.x += WALK_SPEED;
+            }
+            if(whichWarrior.keyHeld_East) {
+                whichWarrior.x -= WALK_SPEED;
+            }
         } // end of if else if goal vs road
     } // end of world row and col
 } // end of warriorWorldHandling func
