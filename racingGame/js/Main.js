@@ -21,8 +21,8 @@ window.onload = function() {
 function imageLoadingDoneSoStartGame(){
     setInterval(updateAll, 1000/framesPerSecond);
     setUpInput();
-    blueCar.reset(carPic);
-    greenCar.reset(car2Pic);
+    blueCar.reset(carPic, "Blue Storm");
+    greenCar.reset(car2Pic, "Green Machine");
 }
 
 function updateAll() {

@@ -10,6 +10,7 @@ function carClass() { //create a class to easily create new cars
     this.ang = 0;
     this.speed = 0;
     this.myCarPic; //which picture to use
+    this.name = "Untitled Car"; //default name
 
     this.keyHeld_Gas = false;
     this.keyHeld_Reverse = false;
@@ -28,7 +29,8 @@ function carClass() { //create a class to easily create new cars
         this.controlKeyLeft = leftKey;
     }
 
-    this.reset = function(whichImage) {
+    this.reset = function(whichImage, carName) {
+        this.name = carName;
         this.myCarPic = whichImage;
         for(var eachRow = 0; eachRow < TRACK_ROWS; eachRow++){
             for(var eachCol = 0; eachCol < TRACK_COLS; eachCol++){
