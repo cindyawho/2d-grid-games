@@ -1,5 +1,3 @@
-console.log("Welcome to the racing game!");
-
 // ~~~~~~~~~~~~~~~~ Global Variables ~~~~~~~~~~~~~~~~
 var canvas, canvasContext;
 var framesPerSecond = 30;
