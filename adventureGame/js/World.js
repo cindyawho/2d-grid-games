@@ -120,6 +120,12 @@ function rowColtoArrayIndex(col, row) {
     return col + WORLD_COLS * row;
 }
 
+function tileTypeHasTransparency(checkTileType){
+    return (checkTileType == WORLD_DOOR ||
+            checkTileType == WORLD_KEY ||
+            checkTileType == WORLD_TROPHY);
+}
+
 function drawWorlds() {
     var arrayIndex = 0;
     var drawTileX = 0;
@@ -128,7 +134,7 @@ function drawWorlds() {
         for(var eachCol = 0; eachCol < WORLD_COLS; eachCol++){
             var tileKindHere = worldGrid[arrayIndex];
             var useImg = worldPics[tileKindHere]; //take the value in the world map and find the image from the worldPics array we load
-            if(worldGrid[arrayIndex] == 3 || worldGrid[arrayIndex] == 4 || worldGrid[arrayIndex] == 5){
+            if(tileTypeHasTransparency(tileKindHere)){
                 canvasContext.drawImage(worldPics[0], drawTileX, drawTileY);
             }
             canvasContext.drawImage(useImg, drawTileX, drawTileY);
