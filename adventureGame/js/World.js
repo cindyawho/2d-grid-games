@@ -3,6 +3,9 @@ const WORLD_H = 50;
 const WORLD_GAP = 0;
 const WORLD_COLS = 16;
 const WORLD_ROWS = 12;
+const WORLD_TOTAL_WIDTH = WORLD_W*WORLD_COLS;
+const WORLD_TOTAL_HEIGHT = WORLD_H*WORLD_ROWS;
+// console.log(WORLD_TOTAL_WIDTH, ":", WORLD_TOTAL_HEIGHT);
 var theArena =  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
                 1, 1, 1, 1, 4, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 4,
                 1, 1, 1, 0, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0, 0,
@@ -89,7 +92,13 @@ function warriorWorldHandling(whichWarrior) {
             console.log(whichWarrior.name + " WINS!!");
             nextLevel();
             // alert(whichWarrior.name + " WINS!!"); // warrior keeps going after alert as if up key was still pressed
-        } else if(tileHere != WORLD_ROAD) {
+        } 
+        else if(tileHere != WORLD_ROAD || 
+                whichWarrior.x <= 3 || whichWarrior.x >= WORLD_TOTAL_WIDTH-(WORLD_W/3)
+                || whichWarrior.y <= WORLD_H/2 || whichWarrior.y > WORLD_TOTAL_HEIGHT-(WORLD_H/3)
+            ) {
+            // console.log(warriorWorldCol, ":", warriorWorldRow);
+            // console.log(whichWarrior.x, ":", whichWarrior.y);
             if(whichWarrior.keyHeld_North) {
                 whichWarrior.y += WALK_SPEED;
                 // console.log("PRESSING NORTH");
