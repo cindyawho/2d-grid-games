@@ -9,6 +9,7 @@ function warriorClass() { //create a class to easily create new warriors
     this.speed = 0;
     this.myWarriorPic; //which picture to use
     this.name = "Untitled Warrior"; //default name
+    this.keysHeld = 0;
 
     this.keyHeld_North = false;
     this.keyHeld_South = false;

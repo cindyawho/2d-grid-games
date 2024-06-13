@@ -80,6 +80,21 @@ function returnTileTypeAtColRow(col, row) {
     }
 }
 
+function handleStoppingWarrior(whichWarrior){
+    if(whichWarrior.keyHeld_North) {
+        whichWarrior.y += WALK_SPEED;
+    }
+    if(whichWarrior.keyHeld_South) {
+        whichWarrior.y -= WALK_SPEED;
+    }
+    if(whichWarrior.keyHeld_West) {
+        whichWarrior.x += WALK_SPEED;
+    }
+    if(whichWarrior.keyHeld_East) {
+        whichWarrior.x -= WALK_SPEED;
+    }
+}
+
 function warriorWorldHandling(whichWarrior) {
     var warriorWorldCol = Math.floor(whichWarrior.x/ WORLD_W);
     var warriorWorldRow = Math.floor(whichWarrior.y/WORLD_H);
@@ -94,30 +109,24 @@ function warriorWorldHandling(whichWarrior) {
             // alert(whichWarrior.name + " WINS!!"); // warrior keeps going after alert as if up key was still pressed
         } 
         else if(tileHere == WORLD_KEY) {
-            
+            whichWarrior.keysHeld++;
+            console.log(whichWarrior.keysHeld);
+            // console.log(warriorWorldCol, ":", warriorWorldRow, ":", worldGrid[warriorWorldCol + WORLD_COLS*warriorWorldRow]);
+            // console.log(warriorWorldCol + WORLD_COLS*warriorWorldRow);
+            worldGrid[warriorWorldCol + WORLD_COLS*warriorWorldRow] = WORLD_ROAD;
         }
         else if(tileHere == WORLD_DOOR) {
-
+            if(whichWarrior.keysHeld > 0){
+                whichWarrior.keysHeld--;
+            } else {
+                handleStoppingWarrior(whichWarrior);
+            }
         }
         else if(tileHere != WORLD_ROAD || 
                 whichWarrior.x <= 3 || whichWarrior.x >= WORLD_TOTAL_WIDTH-(WORLD_W/3)
                 || whichWarrior.y <= WORLD_H/2 || whichWarrior.y > WORLD_TOTAL_HEIGHT-(WORLD_H/3)
             ) {
-            // console.log(warriorWorldCol, ":", warriorWorldRow);
-            // console.log(whichWarrior.x, ":", whichWarrior.y);
-            if(whichWarrior.keyHeld_North) {
-                whichWarrior.y += WALK_SPEED;
-                // console.log("PRESSING NORTH");
-            }
-            if(whichWarrior.keyHeld_South) {
-                whichWarrior.y -= WALK_SPEED;
-            }
-            if(whichWarrior.keyHeld_West) {
-                whichWarrior.x += WALK_SPEED;
-            }
-            if(whichWarrior.keyHeld_East) {
-                whichWarrior.x -= WALK_SPEED;
-            }
+            handleStoppingWarrior(whichWarrior);
         } // end of if else if goal vs road
     } // end of world row and col
 } // end of warriorWorldHandling func
