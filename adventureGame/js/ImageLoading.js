@@ -29,6 +29,7 @@ function loadImages() {
       {worldType: WORLD_TROPHY, theFile: "world_trophy.png"},
       {worldType: WORLD_KEY, theFile: "world_key.png"},
       {worldType: WORLD_DOOR, theFile: "world_door.png"},
+      {worldType: WORLD_DOOR_OPEN, theFile: "world_door_open.png"},
     ];
 
     picsToLoad = imageList.length;

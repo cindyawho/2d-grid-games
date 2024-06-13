@@ -36,11 +36,11 @@ var originalWorld =  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 5, 0, 1, 1, 1, 1,
     1, 0, 4, 0, 4, 0, 1, 0, 0, 0, 1, 0, 1, 4, 4, 1,
     1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 5, 1, 1,
-    1, 1, 1, 5, 1, 1, 1, 0, 4, 0, 1, 0, 0, 0, 1, 1,
+    1, 1, 1, 5, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1,
     1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 4, 0, 1, 1, 
     1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1,
     1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 4, 0, 1, 1,
-    1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 
+    1, 4, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 
     1, 0, 5, 0, 5, 0, 5, 0, 3, 0, 1, 1, 1, 1, 1, 1,
     1, 2, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ];
@@ -68,6 +68,7 @@ const WORLD_PLAYERSTART = 2;
 const WORLD_TROPHY = 3;
 const WORLD_KEY = 4;
 const WORLD_DOOR = 5;
+const WORLD_DOOR_OPEN = 6;
 
 function returnTileTypeAtColRow(col, row) {
     if(col >=0 && col < WORLD_COLS && 
@@ -95,6 +96,11 @@ function handleStoppingWarrior(whichWarrior){
     }
 }
 
+function tileTypeMove(checkTileType){
+    return (checkTileType == WORLD_ROAD||
+            checkTileType == WORLD_DOOR_OPEN);
+}
+
 function warriorWorldHandling(whichWarrior) {
     var warriorWorldCol = Math.floor(whichWarrior.x/ WORLD_W);
     var warriorWorldRow = Math.floor(whichWarrior.y/WORLD_H);
@@ -110,19 +116,20 @@ function warriorWorldHandling(whichWarrior) {
         } 
         else if(tileHere == WORLD_KEY) {
             whichWarrior.keysHeld++;
-            console.log(whichWarrior.keysHeld);
+            // console.log(whichWarrior.keysHeld);
             // console.log(warriorWorldCol, ":", warriorWorldRow, ":", worldGrid[warriorWorldCol + WORLD_COLS*warriorWorldRow]);
-            // console.log(warriorWorldCol + WORLD_COLS*warriorWorldRow);
-            worldGrid[warriorWorldCol + WORLD_COLS*warriorWorldRow] = WORLD_ROAD;
+            // console.log(rowColtoArrayIndex(warriorWorldCol, warriorWorldRow));
+            worldGrid[rowColtoArrayIndex(warriorWorldCol, warriorWorldRow)] = WORLD_ROAD;
         }
         else if(tileHere == WORLD_DOOR) {
             if(whichWarrior.keysHeld > 0){
+                worldGrid[rowColtoArrayIndex(warriorWorldCol, warriorWorldRow)] = WORLD_DOOR_OPEN;
                 whichWarrior.keysHeld--;
             } else {
                 handleStoppingWarrior(whichWarrior);
             }
         }
-        else if(tileHere != WORLD_ROAD || 
+        else if(!tileTypeMove(tileHere) || 
                 whichWarrior.x <= 3 || whichWarrior.x >= WORLD_TOTAL_WIDTH-(WORLD_W/3)
                 || whichWarrior.y <= WORLD_H/2 || whichWarrior.y > WORLD_TOTAL_HEIGHT-(WORLD_H/3)
             ) {
@@ -138,7 +145,8 @@ function rowColtoArrayIndex(col, row) {
 function tileTypeHasTransparency(checkTileType){
     return (checkTileType == WORLD_DOOR ||
             checkTileType == WORLD_KEY ||
-            checkTileType == WORLD_TROPHY);
+            checkTileType == WORLD_TROPHY ||
+            checkTileType == WORLD_DOOR_OPEN);
 }
 
 function drawWorlds() {
@@ -155,7 +163,7 @@ function drawWorlds() {
             canvasContext.drawImage(useImg, drawTileX, drawTileY);
             drawTileX += WORLD_W
             arrayIndex++;
-        } //end of for each world   
+        } //end of for each col   
         drawTileY += WORLD_H;     
         drawTileX = 0;
     } //end of for each row
