@@ -1,0 +1,44 @@
+:root {
+    /* COLORS */
+    --backgroundOrange: rgb(246, 145, 30);
+    --mainTextNavy: navy;
+    --black: #000000;
+
+    /* FONTS and SIZES */
+    --fontHeaderFascinate: "Fascinate Inline", sans-serif;
+    --fontKanit: "Kanit", sans-serif;
+    --fs-32px: 2rem;
+    --fs-64px: 4rem;
+}
+
+body{
+    background-color: var(--backgroundOrange);
+}
+
+h1{
+    text-align: center;
+    color: var(--mainTextNavy);
+    font-family: var(--fontHeaderFascinate);
+    font-size: var(--fs-64px);
+}
+
+p{
+    font-family: var(--fontKanit);
+    text-align: center;
+}
+
+ul, li{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.gameSelector {
+    display: flex;
+    outline: 1px red solid;
+}
+.gameSelector li{
+    outline: 1px blue solid;
+    margin: 5px;
+    padding: 5px;
+}
