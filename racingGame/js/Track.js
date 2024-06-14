@@ -99,6 +99,7 @@ function carTrackHandling(whichCar) {
             
         if(tileHere == TRACK_GOAL){
             console.log(whichCar.name + " WINS!!");
+            whichCar.score++;
             nextLevel();
             // alert(whichCar.name + " WINS!!"); // car keeps going after alert as if up key was still pressed
         } else if(tileHere != TRACK_ROAD) {

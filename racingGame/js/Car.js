@@ -11,6 +11,7 @@ function carClass() { //create a class to easily create new cars
     this.speed = 0;
     this.myCarPic; //which picture to use
     this.name = "Untitled Car"; //default name
+    this.score = 0;
 
     this.keyHeld_Gas = false;
     this.keyHeld_Reverse = false;

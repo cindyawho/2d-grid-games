@@ -26,6 +26,8 @@ function imageLoadingDoneSoStartGame(){
 }
 
 function nextLevel() {
+    var gameUpdateText = blueCar.name + ": " + blueCar.score + " VS " + greenCar.name + ": " + greenCar.score;
+    document.getElementById("gameUpdate").innerHTML = gameUpdateText;
     levelNow++
     if(levelNow >= levelList.length) {
         levelNow = 0;
