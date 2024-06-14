@@ -28,6 +28,7 @@ function nextLevel() {
         levelNow = 0;
     }
     loadLevel(levelList[levelNow]);
+    document.getElementById("debugText").innerHTML = "Level: " + levelNow;
 }
 
 function loadLevel(whichLevel) {
