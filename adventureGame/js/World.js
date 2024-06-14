@@ -168,3 +168,9 @@ function drawWorlds() {
         drawTileX = 0;
     } //end of for each row
 } // end of drawWorlds
+
+function drawUserStats(whichWarrior) {
+    colorRect(5, 5, 100, 25, "yellow", 0.7);
+    var userStatsText = "Keys: " + whichWarrior.keysHeld;
+    colorText(userStatsText, 20, 23, "black", "20px serif");
+}

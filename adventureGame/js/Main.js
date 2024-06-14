@@ -9,7 +9,7 @@ window.onload = function() {
     canvas = document.getElementById('gameCanvas');
     canvasContext = canvas.getContext("2d");
     
-    colorRect(0, 0, canvas.width, canvas.height, "black");
+    colorRect(0, 0, canvas.width, canvas.height, "black", 1);
     colorText("LOADING IMAGES...", canvas.width/2, canvas.height/2, "white")
 
     loadImages();
@@ -51,4 +51,5 @@ function clearScreen() {
 function drawAll() {
     drawWorlds();
     blueWarrior.draw();
+    drawUserStats(blueWarrior);
 }
