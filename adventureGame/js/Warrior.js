@@ -32,6 +32,7 @@ function warriorClass() { //create a class to easily create new warriors
         this.name = warriorName;
         this.myWarriorPic = whichImage;
         this.speed = 0;
+        this.keysHeld = 0;
         for(var eachRow = 0; eachRow < WORLD_ROWS; eachRow++){
             for(var eachCol = 0; eachCol < WORLD_COLS; eachCol++){
                 var arrayIndex = rowColtoArrayIndex(eachCol, eachRow);
