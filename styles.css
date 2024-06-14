@@ -7,6 +7,7 @@
     /* FONTS and SIZES */
     --fontHeaderFascinate: "Fascinate Inline", sans-serif;
     --fontKanit: "Kanit", sans-serif;
+    --fs-24px: 1.5rem;
     --fs-32px: 2rem;
     --fs-64px: 4rem;
 }
@@ -25,6 +26,7 @@ h1{
 p{
     font-family: var(--fontKanit);
     text-align: center;
+    font-size: var(--fs-32px);
 }
 
 ul, li{
@@ -33,12 +35,27 @@ ul, li{
     list-style-type: none;
 }
 
+a{
+    text-decoration: none;
+    color: var(--mainTextNavy);
+}
+
 .gameSelector {
     display: flex;
-    outline: 1px red solid;
+    /* outline: 1px red solid; */
+    flex-wrap: wrap;
 }
 .gameSelector li{
-    outline: 1px blue solid;
+    /* outline: 1px blue solid; */
     margin: 5px;
     padding: 5px;
+    flex-grow: 1;
+    padding-bottom: 32px;
+}
+
+li{
+    text-align: center;
+    font-family: var(--fontKanit);
+    font-weight: bold;
+    font-size: var(--fs-24px);
 }
